@@ -1,12 +1,18 @@
-change = 1260
-coin_count = 0
+# 1230
+# 500 500
+# 100 100
+# 10 10 10
 
-coin_types = [500, 100, 50, 10]
+def solution(money):
+    money = money
+    coins = [500, 100, 50, 10]
+    answer = 0
 
-for coin in coin_types:
-    coin_count += change // coin
-    change %= coin
+    for coin in coins:
+        answer += money // coin
+        money %= coin
 
-print(coin_count)
+    return answer
 
-# O(N) = the number of coin_types
+
+print(solution(1230))
