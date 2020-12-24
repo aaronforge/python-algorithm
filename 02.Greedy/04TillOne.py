@@ -1,15 +1,17 @@
+# 25 3 => 6
+
 n, k = map(int, input().split())
 answer = 0
 
-while n >= k:
-    while n % k != 0:
-        n -= 1
-        answer += 1
-    n /= k
-    answer += 1
+while True:
+    target = (n // k) * k
+    answer += (n - target)
+    n = target
 
-while n > 1:
-    n -= 1
+    if n < k:
+        break
     answer += 1
+    n //= k
 
+answer += (n - 1)
 print(answer)
