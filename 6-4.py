@@ -38,3 +38,19 @@ def quick_sort(array: list, start: int, end: int):
 
 quick_sort(array, 0, len(array) - 1)
 print(array)
+
+array = [5, 7, 9, 0, 3, 1, 6, 2, 4, 8]
+
+def quick_sort2(array: list):
+    if len(array) < 1:
+        return array
+
+    pivot = array[0]
+    tail = array[1:]
+
+    left = [x for x in tail if x <= pivot]
+    right = [x for x in tail if x > pivot]
+
+    return quick_sort2(left) + [pivot] + quick_sort2(right)
+
+print(quick_sort2(array))
