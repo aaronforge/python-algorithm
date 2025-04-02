@@ -2,14 +2,15 @@ import sys
 input = lambda: sys.stdin.readline().rstrip()
 
 n = int(input())
-storage = list(map(int, input().split()))
 
-a = [0] * 100
+dp = [0] * 100
 
-a[0] = storage[0]
-a[1] = max(storage[0], storage[1])
+data = list(map(int, input().split()))
 
-for i in range(2, n):
-    a[i] = max(storage[i - 1], storage[i - 2] + storage[i])
+dp[0] = data[0]
+dp[1] = max(data[0], data[1])
 
-print(a[n - 1])
+for i in range(2, 4):
+    dp[i] = max(dp[i - 1], dp[i - 2] + data[i])
+
+print(dp[n - 1])

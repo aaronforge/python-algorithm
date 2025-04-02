@@ -1,17 +1,15 @@
-memo = { 0: 0, 1: 1 }
+d = { 1: 1, 2: 1 }
 
-def fibo(x: int):
-    if x in memo:
-        return memo[x]
+def fibo(x):
+    if x == 1 or x == 2:
+        return 1
     
-    print(f'f({x})')
+    if x in d:
+        return d[x]
     
-    memo[x] = fibo(x - 2) + fibo(x - 1)
+    d[x] = fibo(x - 1) + fibo(x - 2)
 
-    return memo[x]
+    return d[x]
 
-print(fibo(9))
-print(fibo(1))
-print(fibo(2))
-print(fibo(3))
-print(fibo(10))
+
+print(fibo(99))
