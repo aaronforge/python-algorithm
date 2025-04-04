@@ -37,7 +37,7 @@ def dijkstra(start: int):
         
         # 현재 노드 인접 노드 방문
         for next_node, next_cost in graph[current_node]:
-            next_total_cost = distance[current_node] + next_cost
+            next_total_cost = current_cost + next_cost
 
             if next_total_cost < distance[next_node]:
                 distance[next_node] = next_total_cost
