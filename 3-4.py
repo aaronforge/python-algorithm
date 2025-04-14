@@ -1,20 +1,26 @@
-n, k = map(int, input().split())
+n, m = map(int, input().split())
 
 result = 0
 
-# 나눌 수 있을 때 까지 나누기(나누려는 수와 같거나 크면 됨)
-while n >= k:
-    while n % k != 0:
-        # 나누어 떨어지지 않는 경우 -1
-        n -= 1
-        result += 1
+while True:
+    # 더이상 나눌 수 없음
+    if n < m:
+        # 현재의 N이 1이 될 때 까지 -1 연산이 필요함 -> n - 1이 연산 -1 필요한 수
+        result += (n - 1)
+        break
+
+    # m으로 나누어 떨어지는 수
+    target = (n // m) * m
+
+    # target 까지 -1 연산 필요 수
+    result += n - target
+
+    # 이미 빼기 처리 완료 -> n 업데이트
+    n = target
     
-    n //= k
+    # 나누기
+    n //= m
     result += 1
 
-# 1 이상 K 이하 남는 경우
-while n > 1:
-    n -= 1
-    result += 1
 
 print(result)
