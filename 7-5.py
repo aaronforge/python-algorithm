@@ -1,6 +1,3 @@
-import sys
-input = lambda: sys.stdin.readline().rstrip()
-
 n = int(input())
 data = list(map(int, input().split()))
 data.sort()
@@ -23,7 +20,7 @@ def binary_search(array, target, start, end):
         return binary_search(array, target, mid + 1, end)
 
 for r in req:
-    if binary_search(data, r, 0, len(data) - 1):
-        print("yes", end=" ")
+    if binary_search(data, r, 0, n - 1):
+        print('yes', end=' ')
     else:
-        print("no", end=" ")
+        print('no', end=' ')
