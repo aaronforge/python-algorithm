@@ -1,55 +1,54 @@
 n, m = map(int, input().split())
-x, y, d = map(int, input().split())
 
-visits = [[0] * m for _ in range(n)]
+# x = 세로 row 좌표, y = 가로 column 좌표
+x, y, direction = map(int, input().split())
 
-fields = []
-for _ in range(n):
-    row = list(map(int, input().split()))
-    fields.append(row)
+data = [list(map(int, input().split())) for _ in range(n)]
 
-# 0 북 / 1 동 / 2 남 / 3 서
-dx = [-1, 0, +1, 0]
-dy = [0, +1, 0, -1]
+# d = 북 0, 동 1, 남 2, 서 3
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+# 방문 기록
+d = [[0] * m for _ in range(n)]
+d[x][y] = 1
 
 def turn_left():
-    global d
-    d -= 1
+    global direction
 
-    if d == -1:
-        d = 3
+    direction -= 1
 
+    if direction < 0:
+        direction = 3
+    
+    return direction
+
+result = 1
 turn_count = 0
-visit_count = 1
-visits[x][y] = 1
-
 while True:
+    # 1. 왼쪽 방향으로 90도 회전
     turn_left()
 
-    next_x = x + dx[d]
-    next_y = y + dy[d]
+    nx, ny = x+dx[direction], y+dy[direction]
 
-    if visits[next_x][next_y] == 0 \
-        and fields[next_x][next_y] == 0 \
-        and next_x > 0 and next_y > 0 \
-        and next_x <= n and next_y <= m:
-            x, y = next_x, next_y
-            visit_count += 1
-            continue
-
+    # 2. 앞에 안 간 칸이 존재한다면 전진
+    if d[nx][ny] == 0 and data[nx][ny] == 0:
+        d[nx][ny] = 1
+        x, y = nx, ny
+        result += 1
+        turn_count = 0
+        continue
     turn_count += 1
-
+    # 3. 없다면(4방향 모두 돌지 않았다면) 1로 돌아감
     if turn_count == 4:
-        next_x = x - dx[d]
-        next_y = y - dy[d]
-
-        # 뒤로 한 칸(북 <-> 남, 동 <-> 서) 가능
-        if fields[next_x][next_y] == 0:
-             x, y = next_x, next_y
-        else:
-             break
+        nx, ny = x-dx[direction], y-dy[direction]
         
+        # 4. 모든 방향을 다 가보았거나 움직일 수 없고 방향 유지한 채로 뒤로 이동 시 육지라면 -1 칸 이동
+        if data[nx][ny] == 0:
+            x, y = nx, ny
+        else:
+            # 5. 뒤가 바다라면 멈춤
+            break
         turn_count = 0
 
-print(visit_count)
-         
+print(result)

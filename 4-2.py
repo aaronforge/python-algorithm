@@ -1,19 +1,11 @@
-from datetime import datetime, time, timedelta
+h = int(input())
 
-target_hour = int(input())
+result = 0
 
-today = datetime.today()
-current_time = datetime.combine(today, time(0, 0, 0))
-end_time = datetime.combine(today, time(target_hour, 59, 59,))
+for i in range(h+1):
+    for j in range(60):
+        for k in range(60):
+            if '3' in str(i) + str(j) + str(k):
+                result += 1
 
-count = 0
-
-while end_time >= current_time:
-    hh_mm_ss = current_time.strftime('%H:%M:%S')
-    
-    if '3' in hh_mm_ss:
-        count += 1
-        
-    current_time += timedelta(seconds=1)
-
-print(count)
+print(result)
